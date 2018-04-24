@@ -17,6 +17,5 @@ end
 Denominator = {denominator'};
 Numerator = {numerator'};
 
-
 transfer_function = tf(Numerator, Denominator, -1);
 end

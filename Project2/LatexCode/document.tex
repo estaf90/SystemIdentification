@@ -117,6 +117,8 @@ Y_3 = \begin{bmatrix}
 \end{equation}
 where $\hat{y}(t|t-k) = \Phi_k \hat{\theta}$ and the values for both $y$ and $u$ prior to $t=1$ are initialized to zero.
 
+Simulation can be performed by setting $k > n$, i.e. the predictor is forced not to use any of the measured outputs. 
+
 \subsection{(d) idcompare}
 Some results for the same system as before \eqref{eq:system} are compared using \emph{idcompare} in Figure \ref{fig:1d}.
 \begin{figure}[ht]
@@ -146,17 +148,124 @@ Some results for the same system as before \eqref{eq:system} are compared using 
 \section{OE estimator}
 
 \subsection{(a) oefit}
+Need to include explanation of why it is ok to use arxfit to and filter to obtain OE model!
 
 \subsection{(b) id2tf}
 No changes from ARX.
 
 \subsection{(c) idpredict}
-Changes necessary.
+According to the lecture notes a $k$-step predictor can be written on the form
+\begin{equation}
+	\label{eq:K-step Prediction}
+	\hat{y}(t|t-k) = \bar{H}_k(q)H^{-1}(q)G(q)u(t) + (1-\bar{H}_k(q)H^{-1}(q))y(t)
+\end{equation}
+which for an OE-model simplifies to
+\begin{equation}
+	\label{eq:K-step Prediction OE}
+	\hat{y}(t|t-k) = G(q)u(t)
+\end{equation}
+since $H^{-1}(q)=1$ and $\bar{H}_k^{-1}(q)=1$ for all $k > 1$. Therefore prediction is the same as simulation for the OE-model and the \emph{idpredict} function calls the \emph{idsimulate} function in the case of an OE-model.
 
 \subsection{(d) idsimulate}
+Using the MATLAB build in function \emph{lsim} after creating the OE transfer function by calling \emph{id2tf}.
 
 \subsection{(e) idcompare}
+No changes necessary? 
+
+Showing only the prediction since simulation is the same as stated above. This can be seen in the Figure \ref{fig:2e-validation}, where OE-data was created and an ARX-model is compared to an OE-model.
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}{.49\textwidth}
+	\centering
+	\includegraphics[trim= 10cm 8cm 10cm 8cm, scale=0.4]{figures/2e-OE-horizon_1.pdf}
+	\caption{OE-model}
+	\label{fig:2e-OE-horizon_1}
+\end{subfigure}
+\begin{subfigure}{.49\textwidth}
+	\centering
+	\includegraphics[trim= 10cm 8cm 10cm 8cm, scale=0.4]{figures/2e-ARX-horizon_1.pdf}
+	\caption{ARX-model}
+	\label{fig:2e-ARX-horizon_1}
+\end{subfigure}
+\caption{OE-model vs ARX-model on OE system of order nb = 2, nf = 2, nk = 1.}
+\label{fig:2e-validation<}
+\end{figure}
+As can be seen in Figure \ref{fig:2e-validation} the model uncertainty is substantially smaller for the OE-model in comparison to the ARX model.
 
 \section{Identify two systems}
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}{.49\textwidth}
+	\centering
+	\includegraphics[trim= 10cm 8cm 10cm 8cm, scale=0.4]{figures/3-ARX-Ex1-idcompare.pdf}
+	\caption{ARX}
+	\label{fig:Ex1-idcompare-ARX}
+\end{subfigure}
+\begin{subfigure}{.49\textwidth}
+	\centering
+	\includegraphics[trim= 10cm 8cm 10cm 8cm, scale=0.4]{figures/3-OE-Ex1-idcompare.pdf}
+	\caption{OE}
+	\label{fig:Ex1-idcompare-OE}
+\end{subfigure}
+\caption{Dataset exercise1}
+\label{fig:Ex1-idcompare}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}{.49\textwidth}
+	\centering
+	\includegraphics[trim= 10cm 8cm 10cm 8cm, scale=0.4]{figures/3-ARX-Ex1.pdf}
+	\caption{ARX}
+	\label{fig:Ex1-ARX}
+\end{subfigure}
+\begin{subfigure}{.49\textwidth}
+	\centering
+	\includegraphics[trim= 10cm 8cm 10cm 8cm, scale=0.4]{figures/3-OE-Ex1.pdf}
+	\caption{OE}
+	\label{fig:Ex1-OE}
+\end{subfigure}
+\caption{Dataset exercise1, using build-in MATLAB plotting functionality.}
+\label{fig:Ex1}
+\end{figure}
+
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}{.49\textwidth}
+	\centering
+	\includegraphics[trim= 10cm 8cm 10cm 8cm, scale=0.4]{figures/3-ARX-Ex2-idcompare.pdf}
+	\caption{ARX}
+	\label{fig:Ex2-idcompare-ARX}
+\end{subfigure}
+\begin{subfigure}{.49\textwidth}
+	\centering
+	\includegraphics[trim= 10cm 8cm 10cm 8cm, scale=0.4]{figures/3-OE-Ex2-idcompare.pdf}
+	\caption{OE}
+	\label{fig:Ex2-idcompare-OE}
+\end{subfigure}
+\caption{Dataset exercise2}
+\label{fig:Ex2-idcompare}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}{.49\textwidth}
+	\centering
+	\includegraphics[trim= 10cm 8cm 10cm 8cm, scale=0.4]{figures/3-ARX-Ex2.pdf}
+	\caption{ARX}
+	\label{fig:Ex2-ARX}
+\end{subfigure}
+\begin{subfigure}{.49\textwidth}
+	\centering
+	\includegraphics[trim= 10cm 8cm 10cm 8cm, scale=0.4]{figures/3-OE-Ex2.pdf}
+	\caption{OE}
+	\label{fig:Ex2-OE}
+\end{subfigure}
+\caption{Dataset exercise2, using build-in MATLAB plotting functionality.}
+\label{fig:Ex2}
+\end{figure}
 
 \end{document}

@@ -7,7 +7,9 @@ method = 'build_in';
 switch method
     case 'build_in'
         H = id2tf(m);
+        warning('off')
         y_sim = lsim(H, Z(:,2), (1:size(Z, 1))');
+        warning('on')
     otherwise
         n = size(Z, 1);
         y_sim = zeros(n, 1);

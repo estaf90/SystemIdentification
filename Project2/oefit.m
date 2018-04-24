@@ -9,12 +9,11 @@ m_arx = arxfit(Z, [4*nf, 4*nb, nk]);  % Fit higher order ARX
 % simulate the ARX model giving output ys
 ys = idsimulate(m_arx, Z);
 
-method = 'optimal';
+method = 'approximate';
 
 switch method
     case 'approximate' % then approximate method
-        Z_oe = [ys, u];
-        m_oe = arxfit(Z_oe, [nf, nb, nk]);
+        m_oe = arxfit([ys, u], [nf, nb, nk]);
     case 'optimal'
         [X_ys, ~] = arxinput([ys, ys], m_arx.n);
         [X_u, ~] = arxinput([u, y], m_arx.n);

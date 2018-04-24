@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2018.1.29)  23 APR 2018 18:12
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2018.1.29)  24 APR 2018 14:56
 entering extended mode
-**C:/Projects/PhD/Courses/SystemIdentification-SSY230/Projects/repo/System-Iden
-tification/Project2/LatexCode/document.tex
-
-(C:/Projects/PhD/Courses/SystemIdentification-SSY230/Projects/repo/System-Ident
+**C:/Projects/PhD/Courses/SystemIdentification-SSY230/Projects/repo/SystemIdent
 ification/Project2/LatexCode/document.tex
+
+(C:/Projects/PhD/Courses/SystemIdentification-SSY230/Projects/repo/SystemIdenti
+fication/Project2/LatexCode/document.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -310,8 +310,8 @@ Package caption Info: hyperref package is loaded.
 \c@subfigure=\count119
 \c@subtable=\count120
 )
-(C:\Projects\PhD\Courses\SystemIdentification-SSY230\Projects\repo\System-Ident
-ification\Project2\LatexCode\document.aux)
+(C:\Projects\PhD\Courses\SystemIdentification-SSY230\Projects\repo\SystemIdenti
+fication\Project2\LatexCode\document.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
 LaTeX Font Info:    ... okay on input line 21.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
@@ -375,10 +375,10 @@ LaTeX Info: Redefining \ref on input line 21.
 LaTeX Info: Redefining \pageref on input line 21.
 LaTeX Info: Redefining \nameref on input line 21.
 
-(C:\Projects\PhD\Courses\SystemIdentification-SSY230\Projects\repo\System-Ident
-ification\Project2\LatexCode\document.out)
-(C:\Projects\PhD\Courses\SystemIdentification-SSY230\Projects\repo\System-Ident
-ification\Project2\LatexCode\document.out)
+(C:\Projects\PhD\Courses\SystemIdentification-SSY230\Projects\repo\SystemIdenti
+fication\Project2\LatexCode\document.out)
+(C:\Projects\PhD\Courses\SystemIdentification-SSY230\Projects\repo\SystemIdenti
+fication\Project2\LatexCode\document.out)
 \@outlinefile=\write3
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
@@ -417,50 +417,140 @@ Package pdftex.def Info: figures/1b-step.pdf used on input line 63.
 File: figures/1d-horizon_1.pdf Graphic file (type pdf)
 
 <use figures/1d-horizon_1.pdf>
-Package pdftex.def Info: figures/1d-horizon_1.pdf used on input line 126.
+Package pdftex.def Info: figures/1d-horizon_1.pdf used on input line 128.
 (pdftex.def)             Requested size: 8.4529pt x 116.97493pt.
 
 <figures/1d-horizon_5.pdf, id=84, 597.23125pt x 845.1575pt>
 File: figures/1d-horizon_5.pdf Graphic file (type pdf)
 
 <use figures/1d-horizon_5.pdf>
-Package pdftex.def Info: figures/1d-horizon_5.pdf used on input line 132.
+Package pdftex.def Info: figures/1d-horizon_5.pdf used on input line 134.
 (pdftex.def)             Requested size: 8.4529pt x 116.97493pt.
 
 <figures/1d-horizon_10.pdf, id=85, 597.23125pt x 845.1575pt>
 File: figures/1d-horizon_10.pdf Graphic file (type pdf)
 
 <use figures/1d-horizon_10.pdf>
-Package pdftex.def Info: figures/1d-horizon_10.pdf used on input line 138.
+Package pdftex.def Info: figures/1d-horizon_10.pdf used on input line 140.
 (pdftex.def)             Requested size: 8.4529pt x 116.97493pt.
- [2 <C:/Projects/PhD/Courses/SystemIdentification-SSY230/Projects/repo/System-I
-dentification/Project2/LatexCode/figures/1b-pzmap.pdf> <C:/Projects/PhD/Courses
-/SystemIdentification-SSY230/Projects/repo/System-Identification/Project2/Latex
-Code/figures/1b-step.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 162.
- [3 <C:/Projects/PhD/Courses/SystemIdentification-SSY230/Projects/repo/System-I
-dentification/Project2/LatexCode/figures/1d-horizon_1.pdf> <C:/Projects/PhD/Cou
-rses/SystemIdentification-SSY230/Projects/repo/System-Identification/Project2/L
-atexCode/figures/1d-horizon_5.pdf> <C:/Projects/PhD/Courses/SystemIdentificatio
-n-SSY230/Projects/repo/System-Identification/Project2/LatexCode/figures/1d-hori
-zon_10.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 162.
+ [2 <C:/Projects/PhD/Courses/SystemIdentification-SSY230/Projects/repo/SystemId
+entification/Project2/LatexCode/figures/1b-pzmap.pdf> <C:/Projects/PhD/Courses/
+SystemIdentification-SSY230/Projects/repo/SystemIdentification/Project2/LatexCo
+de/figures/1b-step.pdf>]
+<figures/2e-OE-horizon_1.pdf, id=105, 597.23125pt x 845.1575pt>
+File: figures/2e-OE-horizon_1.pdf Graphic file (type pdf)
 
-(C:\Projects\PhD\Courses\SystemIdentification-SSY230\Projects\repo\System-Ident
-ification\Project2\LatexCode\document.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 162.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 162.
+<use figures/2e-OE-horizon_1.pdf>
+Package pdftex.def Info: figures/2e-OE-horizon_1.pdf used on input line 181.
+(pdftex.def)             Requested size: 11.27025pt x 155.96262pt.
+
+<figures/2e-ARX-horizon_1.pdf, id=106, 597.23125pt x 845.1575pt>
+File: figures/2e-ARX-horizon_1.pdf Graphic file (type pdf)
+
+<use figures/2e-ARX-horizon_1.pdf>
+Package pdftex.def Info: figures/2e-ARX-horizon_1.pdf used on input line 187.
+(pdftex.def)             Requested size: 11.27025pt x 155.96262pt.
+
+<figures/3-ARX-Ex1-idcompare.pdf, id=107, 597.23125pt x 845.1575pt>
+File: figures/3-ARX-Ex1-idcompare.pdf Graphic file (type pdf)
+
+<use figures/3-ARX-Ex1-idcompare.pdf>
+Package pdftex.def Info: figures/3-ARX-Ex1-idcompare.pdf used on input line 201
+.
+(pdftex.def)             Requested size: 11.27025pt x 155.96262pt.
+
+<figures/3-OE-Ex1-idcompare.pdf, id=108, 597.23125pt x 845.1575pt>
+File: figures/3-OE-Ex1-idcompare.pdf Graphic file (type pdf)
+
+<use figures/3-OE-Ex1-idcompare.pdf>
+Package pdftex.def Info: figures/3-OE-Ex1-idcompare.pdf used on input line 207.
+
+(pdftex.def)             Requested size: 11.27025pt x 155.96262pt.
+
+<figures/3-ARX-Ex1.pdf, id=109, 597.23125pt x 845.1575pt>
+File: figures/3-ARX-Ex1.pdf Graphic file (type pdf)
+
+<use figures/3-ARX-Ex1.pdf>
+Package pdftex.def Info: figures/3-ARX-Ex1.pdf used on input line 219.
+(pdftex.def)             Requested size: 11.27025pt x 155.96262pt.
+
+<figures/3-OE-Ex1.pdf, id=110, 597.23125pt x 845.1575pt>
+File: figures/3-OE-Ex1.pdf Graphic file (type pdf)
+
+<use figures/3-OE-Ex1.pdf>
+Package pdftex.def Info: figures/3-OE-Ex1.pdf used on input line 225.
+(pdftex.def)             Requested size: 11.27025pt x 155.96262pt.
+
+<figures/3-ARX-Ex2-idcompare.pdf, id=111, 597.23125pt x 845.1575pt>
+File: figures/3-ARX-Ex2-idcompare.pdf Graphic file (type pdf)
+
+<use figures/3-ARX-Ex2-idcompare.pdf>
+Package pdftex.def Info: figures/3-ARX-Ex2-idcompare.pdf used on input line 238
+.
+(pdftex.def)             Requested size: 11.27025pt x 155.96262pt.
+
+<figures/3-OE-Ex2-idcompare.pdf, id=112, 597.23125pt x 845.1575pt>
+File: figures/3-OE-Ex2-idcompare.pdf Graphic file (type pdf)
+
+<use figures/3-OE-Ex2-idcompare.pdf>
+Package pdftex.def Info: figures/3-OE-Ex2-idcompare.pdf used on input line 244.
+
+(pdftex.def)             Requested size: 11.27025pt x 155.96262pt.
+
+<figures/3-ARX-Ex2.pdf, id=113, 597.23125pt x 845.1575pt>
+File: figures/3-ARX-Ex2.pdf Graphic file (type pdf)
+
+<use figures/3-ARX-Ex2.pdf>
+Package pdftex.def Info: figures/3-ARX-Ex2.pdf used on input line 256.
+(pdftex.def)             Requested size: 11.27025pt x 155.96262pt.
+
+<figures/3-OE-Ex2.pdf, id=114, 597.23125pt x 845.1575pt>
+File: figures/3-OE-Ex2.pdf Graphic file (type pdf)
+
+<use figures/3-OE-Ex2.pdf>
+Package pdftex.def Info: figures/3-OE-Ex2.pdf used on input line 262.
+(pdftex.def)             Requested size: 11.27025pt x 155.96262pt.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 270.
+ [3 <C:/Projects/PhD/Courses/SystemIdentification-SSY230/Projects/repo/SystemId
+entification/Project2/LatexCode/figures/1d-horizon_1.pdf> <C:/Projects/PhD/Cour
+ses/SystemIdentification-SSY230/Projects/repo/SystemIdentification/Project2/Lat
+exCode/figures/1d-horizon_5.pdf> <C:/Projects/PhD/Courses/SystemIdentification-
+SSY230/Projects/repo/SystemIdentification/Project2/LatexCode/figures/1d-horizon
+_10.pdf>] [4 <C:/Projects/PhD/Courses/SystemIdentification-SSY230/Projects/repo
+/SystemIdentification/Project2/LatexCode/figures/2e-OE-horizon_1.pdf> <C:/Proje
+cts/PhD/Courses/SystemIdentification-SSY230/Projects/repo/SystemIdentification/
+Project2/LatexCode/figures/2e-ARX-horizon_1.pdf> <C:/Projects/PhD/Courses/Syste
+mIdentification-SSY230/Projects/repo/SystemIdentification/Project2/LatexCode/fi
+gures/3-ARX-Ex1-idcompare.pdf> <C:/Projects/PhD/Courses/SystemIdentification-SS
+Y230/Projects/repo/SystemIdentification/Project2/LatexCode/figures/3-OE-Ex1-idc
+ompare.pdf> <C:/Projects/PhD/Courses/SystemIdentification-SSY230/Projects/repo/
+SystemIdentification/Project2/LatexCode/figures/3-ARX-Ex1.pdf> <C:/Projects/PhD
+/Courses/SystemIdentification-SSY230/Projects/repo/SystemIdentification/Project
+2/LatexCode/figures/3-OE-Ex1.pdf>] [5 <C:/Projects/PhD/Courses/SystemIdentifica
+tion-SSY230/Projects/repo/SystemIdentification/Project2/LatexCode/figures/3-ARX
+-Ex2-idcompare.pdf> <C:/Projects/PhD/Courses/SystemIdentification-SSY230/Projec
+ts/repo/SystemIdentification/Project2/LatexCode/figures/3-OE-Ex2-idcompare.pdf>
+ <C:/Projects/PhD/Courses/SystemIdentification-SSY230/Projects/repo/SystemIdent
+ification/Project2/LatexCode/figures/3-ARX-Ex2.pdf> <C:/Projects/PhD/Courses/Sy
+stemIdentification-SSY230/Projects/repo/SystemIdentification/Project2/LatexCode
+/figures/3-OE-Ex2.pdf>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 270.
+
+(C:\Projects\PhD\Courses\SystemIdentification-SSY230\Projects\repo\SystemIdenti
+fication\Project2\LatexCode\document.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 270.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 270.
 Package rerunfilecheck Info: File `document.out' has not changed.
 (rerunfilecheck)             Checksum: B87AE0B7C8F1BB7A6CD7C3110F3F646D;742.
  ) 
 Here is how much of TeX's memory you used:
- 7137 strings out of 494045
- 108394 string characters out of 3145969
+ 7223 strings out of 494045
+ 110434 string characters out of 3145969
  215226 words of memory out of 3000000
- 10340 multiletter control sequences out of 15000+200000
+ 10407 multiletter control sequences out of 15000+200000
  10265 words of font info for 37 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 42i,9n,40p,524b,454s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 42i,9n,40p,523b,454s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C
 :/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/
@@ -474,9 +564,9 @@ MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/Program Files (x86)/MiK
 TeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTe
 X 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files (x86)/MiKTeX 2
 .9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on document.pdf (3 pages, 195967 bytes).
+Output written on document.pdf (5 pages, 324790 bytes).
 PDF statistics:
- 227 PDF objects out of 1000 (max. 8388607)
- 30 named destinations out of 1000 (max. 500000)
- 122 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 403 PDF objects out of 1000 (max. 8388607)
+ 39 named destinations out of 1000 (max. 500000)
+ 172 words of extra memory for PDF output out of 10000 (max. 10000000)
 
