@@ -13,8 +13,8 @@ plot(y_pred, 'LineWidth', 1.5);
 if strcmp(m.model, 'ARX')
     plot(y_sim, 'LineWidth', 1.5);
     
-    ylim([min([min(y_pred), min(y_sim), min(y)]), ...
-         max([max(y_pred), max(y_sim), max(y)])])
+    ylim([min([min(y_pred), min(y)]), ...
+         max([max(y_pred), max(y)])])
 else
     ylim([min([min(y_pred), min(y)]), ...
          max([max(y_pred), max(y)])])

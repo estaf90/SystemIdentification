@@ -78,7 +78,7 @@ disp('OE expect: [0.2, -0.3, 0.4, -0.2]')
 disp(m3_oe.theta')  % This should be the expected parameters defining yf
 
 %% 3
-% clear all; close all;
+clear all; close all;
 disp('3')
 % load('exercise1.mat'); z1 = [y(1:end/2,1), u(1:end/2, 1)]; z2 = [y(end/2+1:end,1), u(end/2+1:end, 1)];
 load('exercise2.mat')
