@@ -24,7 +24,7 @@
 
 \section{ARX estimator}
 \subsection{(a) arxfit}
-The \emph{arxfit} fucntion can beneficially be implemented using the Linear Regression code written in project 1. The ARX model is given by
+The \emph{arxfit} fucntion can beneficially be implemented using the Linear Regression code written in Project 1. The ARX model is given by
 \begin{align}
 	\label{eq:ARX}
 	A(q^{-1})y(t) &= B(q^{-1})u(t) + e(t) \\
@@ -48,7 +48,7 @@ The function arxfit is implemented accordingly. It was verified against the func
 without any noise, and the correct model was obtained.
 
 \subsection{(b) id2tf}
-The function \emph{id2tf} is implemented using MATLABs build in function \emph{tf(Numerator, Denominator, -1)} where \emph{Numerator} = $(\hat{b}_1, \ldots, \hat{b}_{nb})$ and \emph{Denominator} = $(1, \hat{a}_1, \ldots, \hat{a}_{na})$. In Figure \ref{fig:1b-ltiview} the build-in MATLAB function \emph{ltiview} was used to analyze the model found in (a) including noise.
+The function \emph{id2tf} is implemented using MATLABs build-in function \emph{tf(Numerator, Denominator, `Variable', `$q^{-1}$')} where \emph{Numerator} = $(\hat{b}_1, \ldots, \hat{b}_{nb})$ and \emph{Denominator} = $(1, \hat{a}_1, \ldots, \hat{a}_{na})$. In Figure \ref{fig:1b-ltiview} the build-in MATLAB function \emph{ltiview} was used to analyze the model found in (a) including noise.
 
 \begin{figure}[ht]
 \centering
@@ -120,7 +120,7 @@ where $\hat{y}(t|t-k) = \Phi_k \hat{\theta}$ and the values for both $y$ and $u$
 Simulation can be performed by setting $k > n$, i.e. the predictor is forced not to use any of the measured outputs. 
 
 \subsection{(d) idcompare}
-Some results for the same system as before \eqref{eq:system} are compared using \emph{idcompare} in Figure \ref{fig:1d}.
+Some results for the same system as before \eqref{eq:system} are compared using \emph{idcompare}, along with their prediction/simulation uncertainties, see Figure \ref{fig:1d}.
 \begin{figure}[ht]
 \centering
 \begin{subfigure}{.30\textwidth}
@@ -145,7 +145,10 @@ Some results for the same system as before \eqref{eq:system} are compared using 
 \label{fig:1d}
 \end{figure}
 
-\section{OE estimator}
+When we estimate the model parameters from data, we also obtain their estimation covariance, with the help of which, we can visualize how accurate our estimations are in a condence region. The magnitude of the uncertainties provide a measure of the reliability of the model. With the help of MATLAB System Identifcation toolbox, we can compute and visualize the effect of parameter uncertainties on the model response in time and frequency domains using pole-zero maps, Bode plot, and step response plots, etc.
+
+
+\section{Write an OE estimator}
 
 \subsection{(a) oefit}
 Having the Output-Error system
@@ -157,11 +160,11 @@ Estimating a high order ARX model $A_h(q)y(t) = B_h(q)u(t) + e(t)$ it is possibl
 	y_s(t) = \frac{B_h(q)}{A_h(q)}
 \end{equation}
 
-\subsection{Approximate}
+Adding white noise to the output signal given that the number of data is high, we can re-obtain the true parameters using an OE model; however, this is not the case for ARX model. This difference is a direct consequence of the different ways modeling the system disturbances in the OE and the ARX model. In the OE model, system disturbances are directly added to the output signal, whereas in the ARX model, system disturbances are part of the system dynamics.
+
 Now using the noise free data, an ARX model fit becomes the same as an OE model fit. Thus we obtain our OE prediction $\hat{y}(t) = \frac{\hat{B(q)}}{\hat{A}(q)}u(t) + e(t)$ from the ARX model fit $\hat{A}(q)y_s(t) = \hat{B(q)}u(t)$. The prediction error then becomes $| \frac{B_0(q)}{A_0(q)}u(t) - \frac{\hat{B(q)}}{\hat{A}(q)}u(t)|$, which is minimized for $\frac{B_h(q)}{A_h(q)} = \frac{B_0(q)}{A_0(q)}$.
 
-\subsection{Optimal}
-...
+We have also successfully implemented the OE model using this optimal method specifed in the problem description, i.e., fltering the simulated and input data using a FIR flter with parameter Ah before estimating using the ARX model with original order, see attached MATLAB file.
 
 \subsection{(b) id2tf}
 No changes from ARX.
@@ -245,7 +248,7 @@ As can be seen in Figure \ref{fig:2e-validation} the model uncertainty is substa
 \label{fig:Ex1}
 \end{figure}
 
-The results on exercise1 data shows that both the ARX and OE system are stable and that they produce prediction results of similar accuracy. Therefore we choose the model according to the Parcimony Principle and that is the ARX model which has a total of 9 parameters while the OE model has a total of 12 parameters.
+The results on exercise1 data shows that both the ARX and OE system are stable and that they produce prediction results of similar accuracy. It is therfore possible to use either of the models to model the stable system generating exercise1 data. We choose the model according to the Parcimony Principle and that is the ARX model which has a total of 9 parameters while the OE model has a total of 12 parameters.
 
 \subsection{Results on data set exercise2}
 
@@ -302,6 +305,7 @@ In Figure \ref{fig:Ex2-ARX} there are three zeros and poles that are close and s
 \caption{ARX result after canceling out some zeros and poled from dataset exercise2.}
 \label{fig:Ex2-ARX-cancel}
 \end{figure}
-The ARX model is still unstable for the data set exercise2, while the OE model is stable. Thus the OE model is probably the correct model to use for the data set exercise2. As the pole-zero map shows in Figure \ref{fig:Ex2} it could be worth trying out an OE model of order $n_F = 2$, $n_B = 3$ and $n_K = 2$.
+
+It is obvious from Figure \ref{fig:Ex2-ARX-cancel} that the system modelled is unstable due to the large MSE for the simulated ARX model. Due to the fact that the simulated output from an ARX model is used to find the parameters for the OE model, it does not make sense using it to model an unstable system by making use of the simulated output which does not match the true system at all. Thus, the ARX model is the prefered model for exercise2 data.
 
 \end{document}

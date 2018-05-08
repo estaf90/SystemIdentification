@@ -3,14 +3,12 @@
 \BOOKMARK [2][-]{subsection.1.2}{\(b\) id2tf}{section.1}% 3
 \BOOKMARK [2][-]{subsection.1.3}{\(c\) idpredict and idsimulate}{section.1}% 4
 \BOOKMARK [2][-]{subsection.1.4}{\(d\) idcompare}{section.1}% 5
-\BOOKMARK [1][-]{section.2}{OE estimator}{}% 6
+\BOOKMARK [1][-]{section.2}{Write an OE estimator}{}% 6
 \BOOKMARK [2][-]{subsection.2.1}{\(a\) oefit}{section.2}% 7
-\BOOKMARK [2][-]{subsection.2.2}{Approximate}{section.2}% 8
-\BOOKMARK [2][-]{subsection.2.3}{Optimal}{section.2}% 9
-\BOOKMARK [2][-]{subsection.2.4}{\(b\) id2tf}{section.2}% 10
-\BOOKMARK [2][-]{subsection.2.5}{\(c\) idpredict}{section.2}% 11
-\BOOKMARK [2][-]{subsection.2.6}{\(d\) idsimulate}{section.2}% 12
-\BOOKMARK [2][-]{subsection.2.7}{\(e\) idcompare}{section.2}% 13
-\BOOKMARK [1][-]{section.3}{Identify two systems}{}% 14
-\BOOKMARK [2][-]{subsection.3.1}{Results on data set exercise1}{section.3}% 15
-\BOOKMARK [2][-]{subsection.3.2}{Results on data set exercise2}{section.3}% 16
+\BOOKMARK [2][-]{subsection.2.2}{\(b\) id2tf}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.3}{\(c\) idpredict}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.4}{\(d\) idsimulate}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.5}{\(e\) idcompare}{section.2}% 11
+\BOOKMARK [1][-]{section.3}{Identify two systems}{}% 12
+\BOOKMARK [2][-]{subsection.3.1}{Results on data set exercise1}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.2}{Results on data set exercise2}{section.3}% 14
