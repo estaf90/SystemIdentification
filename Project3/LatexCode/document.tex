@@ -31,7 +31,7 @@ As mentioned previously the input data is a periodic sinusodial sweep (see top p
 
 \begin{figure}[ht]
 \centering
-\includegraphics[trim= 10cm 8cm 10cm 8cm, scale=0.6]{figures/input.pdf}
+\includegraphics[trim= 10cm 8cm 10cm 8cm, scale=0.7]{figures/input.pdf}
 \caption{System data, input $u(t)$ (top) and output $y(t)$ (bottom).}
 \label{fig:input}
 
@@ -40,48 +40,36 @@ To make sure that the frequency content in both the training and validation data
 
 \begin{figure}[ht]
 \centering
-\includegraphics[trim= 10cm 8cm 10cm 8cm, scale=0.6]{figures/bode-train_valid.pdf}
-\caption{Bode-plot of training and validation data.}
-\label{fig:bode-train_valid}
+\begin{subfigure}{.49\textwidth}
+	\centering
+	\includegraphics[trim= 10cm 8cm 10cm 8cm, scale=0.4]{figures/bode-train_valid.pdf}
+	\caption{Bode-plot of training and validation data.}
+	\label{fig:bode-train_valid}
+\end{subfigure}
+\begin{subfigure}{.49\textwidth}
+	\centering
+	\includegraphics[trim= 10cm 8cm 10cm 8cm, scale=0.4]{figures/periodogram-train_valid.pdf}
+	\caption{Periodogram of training and validation data.}
+	\label{fig:periodogram-train_valid}
+\end{subfigure}
+\caption{Analyzing training/validation split.}
+\label{fig:train_valid}
 \end{figure}
-From analysing Figure \ref{fig:bode-train_valid} it is clear that the amplitude of the frequency content in both training- and validation data is very similar, while there is a phase shift for frequencies $>0.35$ rad/s.
 
-\subsection{Pre-Processing}
+From analysing Figure \ref{fig:bode-train_valid} it is clear that the amplitude of the frequency content in both training- and validation data is very similar, while there is a phase shift for frequencies $>0.35$ rad/s. Using the MATLAB build-in function \emph{periodogram} it is clear that the frequency content of the training- and validation data is very similar and we conclude that the chosen way to construct training/validation data is a good choice.
 
-\ifx
-\begin{align}
-	\label{eq:}
-	A(q^{-1})y(t) &= B(q^{-1})u(t) + e(t) \\
-	\theta &= (a_1, \ldots a_{na}, b_1, \ldots, b_{nb})^\mathsf{T}
-\end{align}
-
-
-\begin{equation}
-	\label{eq:}
-	y(t) = \phi(t) \theta + e(t)
-\end{equation}
-
-
-% Figure
+It can be interesting to analyse the autocorrelations of and cross-correlation between the input $u(t)$ and the output $y(t)$. The correlations can be seen in Figure \ref{fig:cross-correlation}.
 \begin{figure}[ht]
 \centering
-\begin{subfigure}{.49\textwidth}
-	\centering
-	\includegraphics[trim= 10cm 8cm 10cm 8cm, scale=0.4]{figures/1b-pzmap.pdf}
-	\caption{pzmap using ltiview}
-	\label{fig:1b-pzmap}
-\end{subfigure}
-\begin{subfigure}{.49\textwidth}
-	\centering
-	\includegraphics[trim= 10cm 8cm 10cm 8cm, scale=0.4]{figures/1b-step.pdf}
-	\caption{Step response using ltiview}
-	\label{fig:1b-step}
-\end{subfigure}
-\caption{MATLABs build in function \emph{ltiview} analyzing the found ARX model for the system in \eqref{eq:system} including noise.}
-\label{fig:1b-ltiview}
+\includegraphics[trim= 10cm 8cm 10cm 8cm, scale=0.7]{figures/cross-correlation.pdf}
+\caption{Autocorrelations of and cross-correlation between the input $u(t)$ and the output $y(t)$}
+\label{fig:cross-correlation}
 \end{figure}
+From Figure \ref{fig:cross-correlation} it is clear that the output depends on previous values of itself as well as previous values of the input. 
 
-\fi
+\textbf{NOTE:} We should return to cross-correlation analysis after having a trained model of the system to make sure there are no cross-correlations remaining, since that could mean that a too simple model would have been used.
+
+\subsection{Pre-Processing}
 
 
 \end{document}

@@ -15,22 +15,31 @@ ylabel('torque'); title('input'); legend('train','valid');
 subplot(2,1,2); plot(tt, yt, 'b'); hold on; plot(tv, yv,'r'); 
 ylabel('acceleration');title('output'); legend('train','valid');
 
-
-p_uu = periodogram(u);
 p_utut = periodogram(ut);
 p_uvuv = periodogram(uv);
+figure
+periodogram([ut,uv]); legend('train','valid');
 
 Ts = 1;  % I dont know about this value!
-zu = iddata(y, u, Ts);
 zut = iddata(yt, ut, Ts);
 zuv = iddata(yv, uv, Ts);
-
-ge_u = etfe(zu);  % Empirical Transfer Function Estimate
 ge_ut = etfe(zut);
 ge_uv = etfe(zuv);
 % gs = spa(z1);  % Smoothed spectral estimate
 figure; 
 bode(ge_ut, ge_uv); legend('train','valid'); grid on;
+
+
+% auto- and cross-correlation
+
+figure
+cv = 2/sqrt(length(u)); %critival value, using normal assumption
+subplot(2,2,1); autocorr(u, 'NumLags', 50); title('autocorr(u(t))')
+subplot(2,2,3); [r_yu, lags] = xcorr(y, u, 50, 'coeff'); stem(lags, r_yu, '.')
+hold on; plot(lags, cv*ones(size(lags)), 'k', lags, -cv*ones(size(lags)), 'k');
+title('xcorr(y(t), u(t))')
+subplot(2,2,4); autocorr(y, 'NumLags', 50); title('autocorr(y(t))')
+
 % 
 % % Data pre-processing
 % figure
