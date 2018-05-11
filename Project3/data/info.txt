@@ -1,0 +1,36 @@
+Contributed by:
+	Favoreel
+	KULeuven
+	Departement Electrotechniek ESAT/SISTA
+Kardinaal Mercierlaan 94
+B-3001 Leuven
+Belgium
+	wouter.favoreel@esat.kuleuven.ac.be
+Description:
+ 	Data from a flexible robot arm. The arm is installed on an electrical 
+ 	motor.  We have modeled the transfer function from the measured reaction 
+ 	torque of the structure on the ground to the acceleration of the 
+ 	flexible arm.  The applied input is a periodic sine sweep.
+ 	
+Sampling:
+Number:
+	1024
+Inputs:
+	u: reaction torque of the structure
+Outputs:
+	y: accelaration of the flexible arm
+References:
+	We are grateful to Hendrik Van Brussel and Jan Swevers of the laboratory
+    	of Production Manufacturing and Automation of the Katholieke
+    	Universiteit Leuven, who provided us with these data, which were
+    	obtained in the framework of the Belgian Programme on
+    	Interuniversity Attraction Poles (IUAP-nr.50) initiated by the
+    	Belgian State - Prime Minister's Office - Science Policy
+    	Programming.
+Properties:
+Columns:
+	Column 1: input u
+	Column 2: output y
+Category:
+	mechanical systems
+Where:

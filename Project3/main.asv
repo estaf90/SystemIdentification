@@ -1,0 +1,35 @@
+close all; clear all;
+
+fname = fullfile('data','robot_arm.dat');
+data = load(fname);
+u = data(:,1);
+y = data(:, 2);
+ut = u(1:end/2); yt = y(1:end/2);
+uv = u(end/2+1:end); yv = y(end/2+1:end);
+clear fname;
+
+% % Understanding data
+
+figure
+plot(u); xlabel('')
+figure
+periodogram(u);
+
+Ts = 1;  % I dont know about this value!
+z1 = iddata(y, u, Ts);
+ge = etfe(z1);  % Empirical Transfer Function Estimate
+% gs = spa(z1);  % Smoothed spectral estimate
+figure
+% bode(ge, gs)
+bode(ge)
+figure
+pzmap(id2tf(ge))
+% 
+% % Data pre-processing
+% figure
+% subplot(1,2,1); plot(u); title('input'); hold on
+% subplot(1,2,2); plot(y); title('output');
+% % clear that there are no need of trends
+% 
+% % Try linear model (wrong)
+% m_arx = arx(data, [10,10,0]);
