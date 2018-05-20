@@ -1,4 +1,4 @@
-close all; clear all;
+close all; clear; clc;
 dbstop if error;
 
 fname = fullfile('data','robot_arm.dat');
@@ -18,7 +18,6 @@ subplot(2,1,1); plot(tt, ut, 'b'); hold on; plot(tv,uv,'r');
 ylabel('torque'); title('input'); legend('train','valid');
 subplot(2,1,2); plot(tt, yt, 'b'); hold on; plot(tv, yv,'r'); 
 ylabel('acceleration');title('output'); legend('train','valid');
-
 pause
 
 disp('Plotting the Empirical Transfer Function Estimate of training and validation data...')
@@ -29,23 +28,27 @@ ge_t = etfe(zt);
 ge_v = etfe(zv);
 figure; 
 bode(ge_t, ge_v); legend('train','valid'); grid on;
+set(findall(gcf,'type','line'),'linewidth',2)
 pause
 
 % auto- and cross-correlation
 %correlations(u, y)
 
 %% Model fitting
-models = {@arx, @oe, @n4sid, @ssest, @tfest};
+model_handles = {@arx, @oe, @n4sid, @ssest, @tfest};
 k = 5;
-[models, mses, freeParams] = modelOrderVsFreeParams(models, zt, zv, 10, k);
+[models, mses, freeParams, akaikePre] = modelOrderVsFreeParams(model_handles, zt, zv, 10, k);
 
 figure;
-subplot(1,2,1); semilogy(mses); ylabel('mse'); xlabel('model order'); grid on
-subplot(1,2,2); plot(freeParams); ylabel('free parameters'); xlabel('model order'); grid on
+NameArray = {'LineStyle'};
+ValueArray = {'-','-','--',':','-.'}';
+subplot(1,3,1); p1 = semilogy(mses,'Linewidth',2); ylabel('mse'); xlabel('model order'); grid on
+set(p1,NameArray,ValueArray)
+subplot(1,3,2); p2 = plot(freeParams,'Linewidth',2); ylabel('free parameters'); xlabel('model order'); grid on
+set(p2,NameArray,ValueArray)
+subplot(1,3,3); p3 = plot(akaikePre,'Linewidth',2); ylabel('AkaikePre final prediction error'); xlabel('model order'); grid on
+set(p3,NameArray,ValueArray)
 legend('arx', 'oe', 'ss (n4sid', 'ss (PEM)', 'tf')
-% figure
-% semilogy(freeParams, mses); grid on
-% legend('arx', 'oe', 'ss (n4sid', 'ss (PEM)')
 pause
 
 
@@ -54,23 +57,40 @@ disp('pzmaps...')
 pzplots(models, 8)
 pause
 
-pzplots(models, 7)
-pause
-
 pzplots(models, 6)
 pause
 
+%%
+disp('Nyquist plot...')
+nyquistplots(models, 8)
+pause
+
+nyquistplots(models, 6)
+pause
 
 %%
 disp('Bode plots...')
-dbstop if error;
 bode_plots(models, [6, 8], ge_t)
+pause
 
 %%
+disp('Simulations')
+model_order = 6;
+peplot(models, model_order, zv, inf)
+pause
+
 disp('Predicions')
 model_order = 6;
 k = 5;
-peplot(models, model_order, zv, k)
+models_idx = cell2mat(cellfun(@(x) ~isequal(x,@oe), model_handles, 'UniformOutput', false));
+peplot(models(:,models_idx), model_order, zv, k)
+pause
+
+%%
+disp('Residual Analysis')
+model_order = 6;
+residualAnalysis_plot(models, model_order, zv, 1)
+pause
 
 %%
 % ARX
@@ -142,6 +162,7 @@ pause
 
 figure; pzmap(arx_opt);
 figure; pzmap(ss_opt);
+
 %% Functions
 % auto- and cross-correlation
 
@@ -156,15 +177,14 @@ function correlations(u_in, y_in)
 end
 
 
-function [trained_models, mses, freeParams] = modelOrderVsFreeParams(models, zt, zv, n, k)
-    mses = zeros(n, length(models));
-    freeParams = zeros(n, length(models));
-    trained_models = cell(n, length(models));
-%     models = {@arx, @oe};
-%     options = {arxOptions, oeOptions};
-%     figure; hold on
+function [trained_models, mses, freeParams, akaikePre] = modelOrderVsFreeParams(models, zt, zv, n, k)
+    num_models = length(models);
+    mses = zeros(n, num_models);
+    akaikePre = zeros(n, num_models);
+    freeParams = zeros(n, num_models);
+    trained_models = cell(n, num_models);
     for ni=1:n
-        for mi = 1:length(models)
+        for mi = 1:num_models
             model = models{mi};
             mfun = functions(model);
             fprintf('Model order %d for %s\n', ni, mfun.function);
@@ -180,17 +200,17 @@ function [trained_models, mses, freeParams] = modelOrderVsFreeParams(models, zt,
                     opt_fun = @() model(zt, ns, Opt);
                 case 'n4sid'
                     Opt = n4sidOptions;       
-                    Opt.Display = 'on';
+%                     Opt.Display = 'on';
                     ns = ni;
                     opt_fun = @() model(zt, ns, 'Form', 'canonical', Opt);
                 case 'ssest'
                     Opt = ssestOptions;       
-                    Opt.Display = 'on';      
+%                     Opt.Display = 'on';     
                     ns = ni;
                     opt_fun = @() model(zt, ns, 'Form', 'canonical', Opt);
                 case 'tfest'
                     Opt = tfestOptions;                   
-                    Opt.Display = 'on';                   
+%                     Opt.Display = 'on';                   
                     Opt.WeightingFilter = [];
                     ns = ni;
                     opt_fun = @() model(zt, ns, Opt, 'Ts', 1);
@@ -203,6 +223,7 @@ function [trained_models, mses, freeParams] = modelOrderVsFreeParams(models, zt,
             yp = predict(m, zv, k); % k-step prediction
             mse = immse(zv.y, yp.y); 
             mses(ni, mi) = mse;
+            akaikePre(ni,mi) = m.Report.Fit.FPE;
         end
     end
 end
@@ -210,9 +231,7 @@ end
 function bode_plots(models, idxs, ge)
     [nrows, ncols] = size(models);
     rows = 1:nrows;
-    M = ceil(sqrt(ncols));
     for i = 1:ncols
-%         subplot(M, ceil(ncols/M), i);
         figure;
         leg = cell(1, length(idxs)+1);
         bode(ge); leg{1,1} = 'train'; hold on;
@@ -241,10 +260,23 @@ function pzplots(models, model_order)
     end
 end
 
-function peplot(models, model_order, zv, k)
+function nyquistplots(models, model_order)
     [nrows, ncols] = size(models);
     rows = 1:nrows;
     M = ceil(sqrt(ncols));
+    figure;
+    for i = 1:ncols
+        subplot(M, ceil(ncols/M), i);
+        j = rows(model_order);
+        h = nyquistplot(models{j,i});
+        showConfidence(h, 0.95)
+        legend(strcat(int2str(model_order),' (', models{1,i}.Report.method, ')'))
+    end
+end
+
+function peplot(models, model_order, zv, k)
+    [nrows, ncols] = size(models);
+    rows = 1:nrows;
     figure;
     leg1 = cell(1, ncols+1);
     leg2 = cell(1, ncols);
@@ -278,3 +310,30 @@ function peplot(models, model_order, zv, k)
         end
     end
 end
+
+function residualAnalysis_plot(models, model_order, zv, k)
+    [nrows, ncols] = size(models);
+    rows = 1:nrows;
+    figure;
+    P = zeros(ncols, length(zv.y));
+    for i = 1:ncols
+        j = rows(model_order);
+        pred = predict(models{j,i}, zv, k);
+        P(i, :) = pred.y;
+        e = zv.y - pred.y;
+        acv = autocorr(e); acv = acv/acv(1)*sqrt(length(e));
+        subplot(ncols,1,i); plot(acv,'Linewidth',2); title(strcat('Auto-correlation test ',models{1,i}.Report.method));
+    end
+    figure;
+    for i = 1:ncols
+        j = rows(model_order);
+        pred = predict(models{j,i}, zv, k);
+        P(i, :) = pred.y;
+        e = zv.y - pred.y;
+        acve = autocorr(e);
+        acvu = autocorr(zv.u);
+        ccv = crosscorr(zv.u,e); ccv = ccv*sqrt(length(e))/sqrt(acve(1)*acvu(1));
+        subplot(ncols,1,i); plot(ccv,'Linewidth',2); title(strcat('Cross-correlation test ',models{1,i}.Report.method));
+    end
+end
+
