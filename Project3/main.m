@@ -243,6 +243,7 @@ function bode_plots(models, idxs, ge)
             leg{1, k+1} = strcat(int2str(idx),' (', models{1,i}.Report.method, ')');
         end
         legend(leg)
+        set(findall(gcf,'type','line'),'linewidth',2)
     end
 end
 
