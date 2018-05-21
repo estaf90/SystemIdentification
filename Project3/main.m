@@ -2,7 +2,7 @@ close all; clear; clc;
 dbstop if error;
 
 fname = fullfile('data','robot_arm.dat');
-disp('Loading data...')
+disp('Loading data...') 
 data = load(fname);
 u = data(:,1); y = data(:,2); t = (1:length(u))';
 sf = 2;  % split factor
@@ -55,7 +55,7 @@ pause
 
 % In discrete-time, a transfer function model has very similar form as the
 % OE model, one possible exception is that sometimes by adding feedthrough,
-% tf model has parameter b0 in the nominator.
+% tf model has parameter b0 in the numerator.
 
 
 %%
@@ -97,6 +97,29 @@ disp('Residual Analysis')
 model_order = 6;
 residualAnalysis_plot(models, model_order, zt, 1) % Estimation data?
 pause
+
+%%
+disp('Nonlinear Identification')
+NL = wavenet('NumberOfUnits',5);
+wavelet_6 = nlarx(zt,[6 6 1],NL);
+wavelet_8 = nlarx(zt,[8 8 1],NL);
+NL = sigmoidnet('NumberOfUnits',5);
+sigmoidnet_6 = nlarx(zt,[6 6 1],NL);
+sigmoidnet_8 = nlarx(zt,[8 8 1],NL);
+NL = treepartition('NumberOfUnits',5);
+treepartition_6 = nlarx(zt,[6 6 1],NL);
+treepartition_8 = nlarx(zt,[8 8 1],NL);
+linearARX_6 = arx(zt,[6 6 1]);
+linearModel_6 = nlarx(zt,linearARX_6);
+linearARX_8 = arx(zt,[8 8 1]);
+linearModel_8 = nlarx(zt,linearARX_8);
+figure
+compare(zv, linearARX_6, linearARX_8, wavelet_6,wavelet_8,...
+    sigmoidnet_6,sigmoidnet_8,treepartition_6,treepartition_8,linearModel_6,linearModel_8, 5);
+figure
+compare(zv, linearARX_6, linearARX_8, wavelet_6,wavelet_8,...
+    sigmoidnet_6,sigmoidnet_8,treepartition_6,treepartition_8,linearModel_6,linearModel_8, Inf);
+
 
 %%
 % ARX
@@ -278,7 +301,7 @@ function nyquistplots(models, model_order)
         subplot(M, ceil(ncols/M), i);
         j = rows(model_order);
         h = nyquistplot(models{j,i});
-        showConfidence(h, 0.95)
+%         showConfidence(h, 0.95)
         legend(strcat(int2str(model_order),' (', models{1,i}.Report.method, ')'))
     end
 end
