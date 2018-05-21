@@ -51,6 +51,10 @@ set(p3,NameArray,ValueArray)
 legend('arx', 'oe', 'ss (n4sid', 'ss (PEM)', 'tf')
 pause
 
+% In discrete-time, a transfer function model has very similar form as the
+% OE model, one possible exception is that sometimes by adding feedthrough,
+% tf model has parameter b0 in the nominator.
+
 
 %%
 disp('pzmaps...')
@@ -89,7 +93,7 @@ pause
 %%
 disp('Residual Analysis')
 model_order = 6;
-residualAnalysis_plot(models, model_order, zv, 1)
+residualAnalysis_plot(models, model_order, zt, 1) % Estimation data?
 pause
 
 %%
