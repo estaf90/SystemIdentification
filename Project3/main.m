@@ -37,17 +37,19 @@ pause
 %% Model fitting
 model_handles = {@arx, @oe, @n4sid, @ssest, @tfest};
 k = 5;
-[models, mses, freeParams, akaikePre] = modelOrderVsFreeParams(model_handles, zt, zv, 10, k);
+[models, mses, freeParams, akaikePre, akaikeIC] = modelOrderVsFreeParams(model_handles, zt, zv, 10, k);
 
 figure;
 NameArray = {'LineStyle'};
 ValueArray = {'-','-','--',':','-.'}';
-subplot(1,3,1); p1 = semilogy(mses,'Linewidth',2); ylabel('mse'); xlabel('model order'); grid on
+subplot(1,4,1); p1 = semilogy(mses,'Linewidth',2); ylabel('mse'); xlabel('model order'); grid on
 set(p1,NameArray,ValueArray)
-subplot(1,3,2); p2 = plot(freeParams,'Linewidth',2); ylabel('free parameters'); xlabel('model order'); grid on
+subplot(1,4,2); p2 = plot(freeParams,'Linewidth',2); ylabel('free parameters'); xlabel('model order'); grid on
 set(p2,NameArray,ValueArray)
-subplot(1,3,3); p3 = plot(akaikePre,'Linewidth',2); ylabel('AkaikePre final prediction error'); xlabel('model order'); grid on
+subplot(1,4,3); p3 = semilogy(akaikePre,'Linewidth',2); ylabel('Final prediction error'); xlabel('model order'); grid on
 set(p3,NameArray,ValueArray)
+subplot(1,4,4); p4 = plot(akaikeIC,'Linewidth',2); ylabel('AkaikePre information criterion'); xlabel('model order'); grid on
+set(p4,NameArray,ValueArray)
 legend('arx', 'oe', 'ss (n4sid', 'ss (PEM)', 'tf')
 pause
 
@@ -181,10 +183,11 @@ function correlations(u_in, y_in)
 end
 
 
-function [trained_models, mses, freeParams, akaikePre] = modelOrderVsFreeParams(models, zt, zv, n, k)
+function [trained_models, mses, freeParams, akaikePre, akaikeIC] = modelOrderVsFreeParams(models, zt, zv, n, k)
     num_models = length(models);
     mses = zeros(n, num_models);
     akaikePre = zeros(n, num_models);
+    akaikeIC = zeros(n, num_models);
     freeParams = zeros(n, num_models);
     trained_models = cell(n, num_models);
     for ni=1:n
@@ -228,6 +231,7 @@ function [trained_models, mses, freeParams, akaikePre] = modelOrderVsFreeParams(
             mse = immse(zv.y, yp.y); 
             mses(ni, mi) = mse;
             akaikePre(ni,mi) = m.Report.Fit.FPE;
+            akaikeIC(ni,mi) = m.Report.Fit.nAIC;
         end
     end
 end
