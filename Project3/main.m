@@ -18,18 +18,21 @@ subplot(2,1,1); plot(tt, ut, 'b'); hold on; plot(tv,uv,'r');
 ylabel('torque'); title('input'); legend('train','valid');
 subplot(2,1,2); plot(tt, yt, 'b'); hold on; plot(tv, yv,'r'); 
 ylabel('acceleration');title('output'); legend('train','valid');
-pause
+% pause
 
 disp('Plotting the Empirical Transfer Function Estimate of training and validation data...')
 Ts = 1;  % I dont know about this value!
 zt = iddata(yt, ut, Ts);  % training data
 zv = iddata(yv, uv, Ts);  % validation data
+tr = getTrend(zt);
+zt = detrend(zt, tr);
+
 ge_t = etfe(zt);
 ge_v = etfe(zv);
 figure; 
 bode(ge_t, ge_v); legend('train','valid'); grid on;
-set(findall(gcf,'type','line'),'linewidth',2)
-pause
+set(findall(gcf,'type','line'),'linewidth',1.5)
+% pause
 
 % auto- and cross-correlation
 %correlations(u, y)
@@ -37,21 +40,18 @@ pause
 %% Model fitting
 model_handles = {@arx, @oe, @n4sid, @ssest, @tfest};
 k = 5;
-[models, mses, freeParams, akaikePre, akaikeIC] = modelOrderVsFreeParams(model_handles, zt, zv, 10, k);
+[models, mses, ~, akaikePre, akaikeIC] = modelOrderVsFreeParams(model_handles, zt, zv, 10, k);
 
 figure;
 NameArray = {'LineStyle'};
 ValueArray = {'-','-','--',':','-.'}';
-subplot(1,4,1); p1 = semilogy(mses,'Linewidth',2); ylabel('mse'); xlabel('model order'); grid on
+subplot(1,3,1); p1 = semilogy(mses,'Linewidth',2); ylabel('mse'); xlabel('model order'); grid on
 set(p1,NameArray,ValueArray)
-subplot(1,4,2); p2 = plot(freeParams,'Linewidth',2); ylabel('free parameters'); xlabel('model order'); grid on
-set(p2,NameArray,ValueArray)
-subplot(1,4,3); p3 = semilogy(akaikePre,'Linewidth',2); ylabel('Final prediction error'); xlabel('model order'); grid on
+subplot(1,3,2); p3 = semilogy(akaikePre,'Linewidth',2); ylabel('Final prediction error'); xlabel('model order'); grid on
 set(p3,NameArray,ValueArray)
-subplot(1,4,4); p4 = plot(akaikeIC,'Linewidth',2); ylabel('AkaikePre information criterion'); xlabel('model order'); grid on
+subplot(1,3,3); p4 = plot(akaikeIC,'Linewidth',2); ylabel('AkaikePre information criterion'); xlabel('model order'); grid on
 set(p4,NameArray,ValueArray)
-legend('arx', 'oe', 'ss (n4sid', 'ss (PEM)', 'tf')
-pause
+legend('arx', 'oe', 'ss (n4sid)', 'ss (PEM)', 'tf')
 
 % In discrete-time, a transfer function model has very similar form as the
 % OE model, one possible exception is that sometimes by adding feedthrough,
@@ -60,137 +60,145 @@ pause
 
 %%
 disp('pzmaps...')
-pzplots(models, 8)
-pause
+% pzplots(models, 6)
 
-pzplots(models, 6)
-pause
+figure
+h = iopzplot(models{6,1});
+showConfidence(h, 0.95)
+
+figure
+h = iopzplot(models{6,3});
+showConfidence(h, 0.95)
 
 %%
 disp('Nyquist plot...')
-nyquistplots(models, 8)
-pause
+% nyquistplots(models, 6)
 
-nyquistplots(models, 6)
-pause
+figure
+h = nyquistplot(models{6,1});
+showConfidence(h, 0.95)
+
+figure
+h = nyquistplot(models{6,3});
+showConfidence(h, 0.95)
 
 %%
 disp('Bode plots...')
-bode_plots(models, [6, 8], ge_t)
-pause
+% bode_plots(models, [6, 8], ge_t)
+
+figure; hold on
+bode(ge_t);
+h = bodeplot(models{6,1});
+showConfidence(h, 0.95);
+h = bodeplot(models{6,3});
+showConfidence(h, 0.95);
+legend('Training data','ARX model','Subspace model')
+set(findall(gcf,'type','line'),'linewidth',1.5)
 
 %%
 disp('Simulations')
 model_order = 6;
 peplot(models, model_order, zv, inf)
-pause
 
 disp('Predicions')
 model_order = 6;
 k = 5;
 models_idx = cell2mat(cellfun(@(x) ~isequal(x,@oe), model_handles, 'UniformOutput', false));
 peplot(models(:,models_idx), model_order, zv, k)
-pause
 
 %%
 disp('Residual Analysis')
 model_order = 6;
 residualAnalysis_plot(models, model_order, zt, 1) % Estimation data?
-pause
 
 %%
 disp('Nonlinear Identification')
-NL = wavenet('NumberOfUnits',5);
-wavelet_6 = nlarx(zt,[6 6 1],NL);
-wavelet_8 = nlarx(zt,[8 8 1],NL);
-NL = sigmoidnet('NumberOfUnits',5);
-sigmoidnet_6 = nlarx(zt,[6 6 1],NL);
-sigmoidnet_8 = nlarx(zt,[8 8 1],NL);
-NL = treepartition('NumberOfUnits',5);
-treepartition_6 = nlarx(zt,[6 6 1],NL);
-treepartition_8 = nlarx(zt,[8 8 1],NL);
-linearARX_6 = arx(zt,[6 6 1]);
-linearModel_6 = nlarx(zt,linearARX_6);
-linearARX_8 = arx(zt,[8 8 1]);
-linearModel_8 = nlarx(zt,linearARX_8);
-figure
-compare(zv, linearARX_6, linearARX_8, wavelet_6,wavelet_8,...
-    sigmoidnet_6,sigmoidnet_8,treepartition_6,treepartition_8,linearModel_6,linearModel_8, 5);
-figure
-compare(zv, linearARX_6, linearARX_8, wavelet_6,wavelet_8,...
-    sigmoidnet_6,sigmoidnet_8,treepartition_6,treepartition_8,linearModel_6,linearModel_8, Inf);
+nonlinearARX = nlarx(zt,[6 6 1]);
+% nonlinearARX_Refined = nlarx(zt,nonlinearARX);
+linearARX = arx(zt,[6 6 1]);
+nlARX_linearModel = nlarx(zt,linearARX);
+HW = nlhw(zt,[6 6 1]);
+% HW_Refined = nlhw(zt,HW);
+linearOE = oe(zt,[6 6 1]);
+HW_OE = nlhw(zt,linearOE);
 
+Validation_data = zv;
+
+figure
+compare(Validation_data, linearARX, nonlinearARX, nlARX_linearModel,HW, HW_OE, 5);
+figure
+compare(Validation_data, linearARX, nonlinearARX, nlARX_linearModel,HW, HW_OE, inf);
 
 %%
 % ARX
-disp('Fitting ARX models')
-Opt = arxOptions;
-k = 10;
-arxL = arx(zt, [4 4 1], Opt);
-arxM = arx(zt,[6 6 1], Opt);
-arxH = arx(zt,[8 8 1], Opt);
-predL = predict(arxL, zv, k);
-predM = predict(arxM, zv, k);
-predH = predict(arxH, zv, k);
-mseH = immse(yv, predH.y); mseM = immse(yv, predM.y); mseL = immse(yv, predL.y);
-figure
-plot(yv,'LineWidth',1.5); hold on; plot(predL.y); plot(predM.y); plot(predH.y);
-title('Trained ARX models')
-legend('y', sprintf('lower order (%.3e)', mseL),...
-    sprintf('medium order (%.3e)', mseM), ...
-    sprintf('high order (%.3e)', mseH));
-pause
-
-disp('Bode plots of the models')
-figure
-bode(arxL, arxM, arxH)
-legend('lower order','medium order', 'high order');
-
-pause
-
-disp('The low order model is to simple')
-figure
-plot(yv,'LineWidth',1.5); hold on; plot(predM.y); plot(predH.y);
-title('Trained ARX models')
-legend('y', sprintf('medium order (%.3e)', mseM), ...
-    sprintf('high order (%.3e)', mseH));
-disp('The training and validation data include very little variation which makes the model estimation prone to overfit without showing in the mse (variance part)!')
-disp('We need to be careful that the model is not overfitting')
-pause
-
-% State space model estimation 
-disp('Estimating State Space models')
-                      
-Options = n4sidOptions;                             
-Options.Display = 'on';
-ss1 = n4sid(zv, 8, Options);
-ss2 = n4sid(zv, 10, 'Form', 'canonical', Options);
-pred_ss1 = predict(ss1, zv, k);
-pred_ss2 = predict(ss2, zv, k);
-mse_ss1 = immse(yv, pred_ss1.y); mse_ss2 = immse(yv, pred_ss2.y);
-figure
-plot(yv,'LineWidth',1.5); hold on; plot(pred_ss1.y); plot(pred_ss2.y);
-title('Trained State Space models')
-legend('y', sprintf('Free (mse=%.3e)', mse_ss1), ...
-    sprintf('OC (mse=%.3e)', mse_ss2));
-
-pause
-
-
-disp('Comparing different model structures')
-arx_opt = arxH; ss_opt = ss2;
-yp_arx = predict(arx_opt, zv, 1);
-yp_ss = predict(ss_opt, zv, 1);
-mse_arx = immse(yv, yp_arx.y); mse_ss = immse(yv, yp_ss.y);
-figure
-plot(yv,'LineWidth',1.5); hold on; plot(yp_arx.y); plot(yp_ss.y);
-title('Trained models')
-legend('y', sprintf('ARX (mse=%.3e)', mse_arx), ...
-    sprintf('SS (mse=%.3e)', mse_ss));
-pause
-
-figure; pzmap(arx_opt);
-figure; pzmap(ss_opt);
+% disp('Fitting ARX models')
+% Opt = arxOptions;
+% k = 10;
+% arxL = arx(zt, [4 4 1], Opt);
+% arxM = arx(zt,[6 6 1], Opt);
+% arxH = arx(zt,[8 8 1], Opt);
+% predL = predict(arxL, zv, k);
+% predM = predict(arxM, zv, k);
+% predH = predict(arxH, zv, k);
+% mseH = immse(yv, predH.y); mseM = immse(yv, predM.y); mseL = immse(yv, predL.y);
+% figure
+% plot(yv,'LineWidth',1.5); hold on; plot(predL.y); plot(predM.y); plot(predH.y);
+% title('Trained ARX models')
+% legend('y', sprintf('lower order (%.3e)', mseL),...
+%     sprintf('medium order (%.3e)', mseM), ...
+%     sprintf('high order (%.3e)', mseH));
+% pause
+% 
+% disp('Bode plots of the models')
+% figure
+% bode(arxL, arxM, arxH)
+% legend('lower order','medium order', 'high order');
+% 
+% pause
+% 
+% disp('The low order model is to simple')
+% figure
+% plot(yv,'LineWidth',1.5); hold on; plot(predM.y); plot(predH.y);
+% title('Trained ARX models')
+% legend('y', sprintf('medium order (%.3e)', mseM), ...
+%     sprintf('high order (%.3e)', mseH));
+% disp('The training and validation data include very little variation which makes the model estimation prone to overfit without showing in the mse (variance part)!')
+% disp('We need to be careful that the model is not overfitting')
+% pause
+% 
+% % State space model estimation 
+% disp('Estimating State Space models')
+%                       
+% Options = n4sidOptions;                             
+% Options.Display = 'on';
+% ss1 = n4sid(zv, 8, Options);
+% ss2 = n4sid(zv, 10, 'Form', 'canonical', Options);
+% pred_ss1 = predict(ss1, zv, k);
+% pred_ss2 = predict(ss2, zv, k);
+% mse_ss1 = immse(yv, pred_ss1.y); mse_ss2 = immse(yv, pred_ss2.y);
+% figure
+% plot(yv,'LineWidth',1.5); hold on; plot(pred_ss1.y); plot(pred_ss2.y);
+% title('Trained State Space models')
+% legend('y', sprintf('Free (mse=%.3e)', mse_ss1), ...
+%     sprintf('OC (mse=%.3e)', mse_ss2));
+% 
+% pause
+% 
+% 
+% disp('Comparing different model structures')
+% arx_opt = arxH; ss_opt = ss2;
+% yp_arx = predict(arx_opt, zv, 1);
+% yp_ss = predict(ss_opt, zv, 1);
+% mse_arx = immse(yv, yp_arx.y); mse_ss = immse(yv, yp_ss.y);
+% figure
+% plot(yv,'LineWidth',1.5); hold on; plot(yp_arx.y); plot(yp_ss.y);
+% title('Trained models')
+% legend('y', sprintf('ARX (mse=%.3e)', mse_arx), ...
+%     sprintf('SS (mse=%.3e)', mse_ss));
+% pause
+% 
+% figure; pzmap(arx_opt);
+% figure; pzmap(ss_opt);
 
 %% Functions
 % auto- and cross-correlation
@@ -313,13 +321,14 @@ function peplot(models, model_order, zv, k)
     leg1 = cell(1, ncols+1);
     leg2 = cell(1, ncols);
     P = zeros(ncols, length(zv.y));
+    e = zeros(ncols, length(zv.y));
     for i = 1:ncols
         j = rows(model_order);
         pred = predict(models{j,i}, zv, k);
         P(i, :) = pred.y;
-        e = zv.y - pred.y;
+        e(i,:) = zv.y - pred.y;
         subplot(2,1,1); plot(pred.y); hold on;
-        subplot(2,1,2); plot(e); hold on;
+        subplot(2,1,2); plot(e(i,:)); hold on;
         leg1{1, i} = models{1,i}.Report.method;
         leg2{1, i} = models{1,i}.Report.method;
     end
@@ -341,6 +350,10 @@ function peplot(models, model_order, zv, k)
             
         end
     end
+    figure; hold on
+    plot(e(1,:)); plot(e(3,:))
+    title('Residual Comparison: ARX Model v.s. Subspace Model')
+    legend('ARX residual','Subspace residual')
 end
 
 function residualAnalysis_plot(models, model_order, zv, k)
@@ -353,8 +366,7 @@ function residualAnalysis_plot(models, model_order, zv, k)
         pred = predict(models{j,i}, zv, k);
         P(i, :) = pred.y;
         e = zv.y - pred.y;
-        acv = autocorr(e); acv = acv/acv(1)*sqrt(length(e));
-        subplot(ncols,1,i); plot(acv,'Linewidth',2); title(strcat('Auto-correlation test ',models{1,i}.Report.method));
+        subplot(ncols,1,i); autocorr(e); title(strcat('Auto-correlation test ',models{1,i}.Report.method));
     end
     figure;
     for i = 1:ncols
@@ -362,10 +374,7 @@ function residualAnalysis_plot(models, model_order, zv, k)
         pred = predict(models{j,i}, zv, k);
         P(i, :) = pred.y;
         e = zv.y - pred.y;
-        acve = autocorr(e);
-        acvu = autocorr(zv.u);
-        ccv = crosscorr(zv.u,e); ccv = ccv*sqrt(length(e))/sqrt(acve(1)*acvu(1));
-        subplot(ncols,1,i); plot(ccv,'Linewidth',2); title(strcat('Cross-correlation test ',models{1,i}.Report.method));
+        subplot(ncols,1,i); crosscorr(zv.u,e); ylim([-0.5,0.5]); title(strcat('Cross-correlation test ',models{1,i}.Report.method));
     end
 end
 
