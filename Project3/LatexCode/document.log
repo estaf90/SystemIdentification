@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2018.1.29)  23 MAY 2018 09:44
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2018.1.29)  23 MAY 2018 10:29
 entering extended mode
 **C:/Projects/PhD/Courses/SystemIdentification-SSY230/Projects/repo/SystemIdent
 ification/Project3/LatexCode/document.tex
@@ -311,7 +311,11 @@ Package caption Info: hyperref package is loaded.
 \c@subtable=\count120
 )
 (C:\Projects\PhD\Courses\SystemIdentification-SSY230\Projects\repo\SystemIdenti
-fication\Project3\LatexCode\document.aux)
+fication\Project3\LatexCode\document.aux
+
+LaTeX Warning: Label `fig:correlations' multiply defined.
+
+)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
 LaTeX Font Info:    ... okay on input line 21.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
@@ -397,62 +401,186 @@ fication\Project3\LatexCode\document.out)
 )
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
- <figures/input.pdf, id=26, 597.23125pt x 845.1575pt>
+ <figures/input.pdf, id=30, 597.23125pt x 845.1575pt>
 File: figures/input.pdf Graphic file (type pdf)
  <use figures/input.pdf>
 Package pdftex.def Info: figures/input.pdf used on input line 34.
-(pdftex.def)             Requested size: 19.72316pt x 272.93755pt.
+(pdftex.def)             Requested size: 11.27025pt x 155.96262pt.
 
-[1
-
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <C:/Projects/PhD/Courses/S
-ystemIdentification-SSY230/Projects/repo/SystemIdentification/Project3/LatexCod
-e/figures/input.pdf>]
-<figures/bode-train_valid.pdf, id=42, 597.23125pt x 845.1575pt>
+<figures/bode-train_valid.pdf, id=32, 597.23125pt x 845.1575pt>
 File: figures/bode-train_valid.pdf Graphic file (type pdf)
 
 <use figures/bode-train_valid.pdf>
 Package pdftex.def Info: figures/bode-train_valid.pdf used on input line 45.
 (pdftex.def)             Requested size: 11.27025pt x 155.96262pt.
 
-<figures/periodogram-train_valid.pdf, id=43, 597.23125pt x 845.1575pt>
+<figures/periodogram-train_valid.pdf, id=33, 597.23125pt x 845.1575pt>
 File: figures/periodogram-train_valid.pdf Graphic file (type pdf)
 
 <use figures/periodogram-train_valid.pdf>
 Package pdftex.def Info: figures/periodogram-train_valid.pdf used on input line
  51.
 (pdftex.def)             Requested size: 11.27025pt x 155.96262pt.
+ [1
 
-<figures/model_order.pdf, id=45, 597.23125pt x 845.1575pt>
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <C:/Projects/PhD/Courses/S
+ystemIdentification-SSY230/Projects/repo/SystemIdentification/Project3/LatexCod
+e/figures/input.pdf>]
+<figures/model_order.pdf, id=51, 597.23125pt x 845.1575pt>
 File: figures/model_order.pdf Graphic file (type pdf)
 
 <use figures/model_order.pdf>
-Package pdftex.def Info: figures/model_order.pdf used on input line 73.
+Package pdftex.def Info: figures/model_order.pdf used on input line 70.
 (pdftex.def)             Requested size: 19.72316pt x 272.93755pt.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 78.
+
+<figures/pz_arx_66.pdf, id=54, 597.23125pt x 845.1575pt>
+File: figures/pz_arx_66.pdf Graphic file (type pdf)
+
+<use figures/pz_arx_66.pdf>
+Package pdftex.def Info: figures/pz_arx_66.pdf used on input line 81.
+(pdftex.def)             Requested size: 11.27025pt x 155.96262pt.
+
+<figures/pz_arx_65.pdf, id=55, 597.23125pt x 845.1575pt>
+File: figures/pz_arx_65.pdf Graphic file (type pdf)
+
+<use figures/pz_arx_65.pdf>
+Package pdftex.def Info: figures/pz_arx_65.pdf used on input line 87.
+(pdftex.def)             Requested size: 11.27025pt x 155.96262pt.
+
+<figures/pz_n4sid_66.pdf, id=56, 597.23125pt x 845.1575pt>
+File: figures/pz_n4sid_66.pdf Graphic file (type pdf)
+
+<use figures/pz_n4sid_66.pdf>
+Package pdftex.def Info: figures/pz_n4sid_66.pdf used on input line 96.
+(pdftex.def)             Requested size: 19.72316pt x 272.93755pt.
+
+<figures/bode_models.pdf, id=57, 597.23125pt x 845.1575pt>
+File: figures/bode_models.pdf Graphic file (type pdf)
+
+<use figures/bode_models.pdf>
+Package pdftex.def Info: figures/bode_models.pdf used on input line 103.
+(pdftex.def)             Requested size: 19.72316pt x 272.93755pt.
+
+<figures/simulations.pdf, id=59, 597.23125pt x 845.1575pt>
+File: figures/simulations.pdf Graphic file (type pdf)
+
+<use figures/simulations.pdf>
+Package pdftex.def Info: figures/simulations.pdf used on input line 117.
+(pdftex.def)             Requested size: 11.27025pt x 155.96262pt.
+
+<figures/sim_diff_arx_ss.pdf, id=60, 597.23125pt x 845.1575pt>
+File: figures/sim_diff_arx_ss.pdf Graphic file (type pdf)
+
+<use figures/sim_diff_arx_ss.pdf>
+Package pdftex.def Info: figures/sim_diff_arx_ss.pdf used on input line 121.
+(pdftex.def)             Requested size: 11.27025pt x 155.96262pt.
+
+<figures/sim_diff_matrix.pdf, id=61, 597.23125pt x 845.1575pt>
+File: figures/sim_diff_matrix.pdf Graphic file (type pdf)
+
+<use figures/sim_diff_matrix.pdf>
+Package pdftex.def Info: figures/sim_diff_matrix.pdf used on input line 129.
+(pdftex.def)             Requested size: 19.72316pt x 272.93755pt.
+
+<figures/predictions.pdf, id=62, 597.23125pt x 845.1575pt>
+File: figures/predictions.pdf Graphic file (type pdf)
+
+<use figures/predictions.pdf>
+Package pdftex.def Info: figures/predictions.pdf used on input line 141.
+(pdftex.def)             Requested size: 11.27025pt x 155.96262pt.
+
+<figures/pred_diff_arx_ss.pdf, id=63, 597.23125pt x 845.1575pt>
+File: figures/pred_diff_arx_ss.pdf Graphic file (type pdf)
+
+<use figures/pred_diff_arx_ss.pdf>
+Package pdftex.def Info: figures/pred_diff_arx_ss.pdf used on input line 145.
+(pdftex.def)             Requested size: 11.27025pt x 155.96262pt.
  [2 <C:/Projects/PhD/Courses/SystemIdentification-SSY230/Projects/repo/SystemId
 entification/Project3/LatexCode/figures/bode-train_valid.pdf> <C:/Projects/PhD/
 Courses/SystemIdentification-SSY230/Projects/repo/SystemIdentification/Project3
-/LatexCode/figures/periodogram-train_valid.pdf>]
-[3 <C:/Projects/PhD/Courses/SystemIdentification-SSY230/Projects/repo/SystemIde
-ntification/Project3/LatexCode/figures/model_order.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 78.
+/LatexCode/figures/periodogram-train_valid.pdf>] <figures/pred_diff_matrix.pdf,
+ id=169, 597.23125pt x 845.1575pt>
+File: figures/pred_diff_matrix.pdf Graphic file (type pdf)
+
+<use figures/pred_diff_matrix.pdf>
+Package pdftex.def Info: figures/pred_diff_matrix.pdf used on input line 153.
+(pdftex.def)             Requested size: 19.72316pt x 272.93755pt.
+
+<figures/auto-corr-1step.pdf, id=170, 597.23125pt x 845.1575pt>
+File: figures/auto-corr-1step.pdf Graphic file (type pdf)
+
+<use figures/auto-corr-1step.pdf>
+Package pdftex.def Info: figures/auto-corr-1step.pdf used on input line 163.
+(pdftex.def)             Requested size: 11.27025pt x 155.96262pt.
+
+<figures/cross-corr-1step.pdf, id=171, 597.23125pt x 845.1575pt>
+File: figures/cross-corr-1step.pdf Graphic file (type pdf)
+
+<use figures/cross-corr-1step.pdf>
+Package pdftex.def Info: figures/cross-corr-1step.pdf used on input line 167.
+(pdftex.def)             Requested size: 11.27025pt x 155.96262pt.
+
+<figures/predictions_nl.pdf, id=172, 597.23125pt x 845.1575pt>
+File: figures/predictions_nl.pdf Graphic file (type pdf)
+
+<use figures/predictions_nl.pdf>
+Package pdftex.def Info: figures/predictions_nl.pdf used on input line 178.
+(pdftex.def)             Requested size: 11.27025pt x 155.96262pt.
+
+<figures/simulations_nl.pdf, id=173, 597.23125pt x 845.1575pt>
+File: figures/simulations_nl.pdf Graphic file (type pdf)
+
+<use figures/simulations_nl.pdf>
+Package pdftex.def Info: figures/simulations_nl.pdf used on input line 182.
+(pdftex.def)             Requested size: 11.27025pt x 155.96262pt.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 188.
+ [3 <C:/Projects/PhD/Courses/SystemIdentification-SSY230/Projects/repo/SystemId
+entification/Project3/LatexCode/figures/model_order.pdf> <C:/Projects/PhD/Cours
+es/SystemIdentification-SSY230/Projects/repo/SystemIdentification/Project3/Late
+xCode/figures/pz_arx_66.pdf> <C:/Projects/PhD/Courses/SystemIdentification-SSY2
+30/Projects/repo/SystemIdentification/Project3/LatexCode/figures/pz_arx_65.pdf>
+] [4 <C:/Projects/PhD/Courses/SystemIdentification-SSY230/Projects/repo/SystemI
+dentification/Project3/LatexCode/figures/pz_n4sid_66.pdf> <C:/Projects/PhD/Cour
+ses/SystemIdentification-SSY230/Projects/repo/SystemIdentification/Project3/Lat
+exCode/figures/bode_models.pdf>] [5 <C:/Projects/PhD/Courses/SystemIdentificati
+on-SSY230/Projects/repo/SystemIdentification/Project3/LatexCode/figures/simulat
+ions.pdf> <C:/Projects/PhD/Courses/SystemIdentification-SSY230/Projects/repo/Sy
+stemIdentification/Project3/LatexCode/figures/sim_diff_arx_ss.pdf> <C:/Projects
+/PhD/Courses/SystemIdentification-SSY230/Projects/repo/SystemIdentification/Pro
+ject3/LatexCode/figures/sim_diff_matrix.pdf> <C:/Projects/PhD/Courses/SystemIde
+ntification-SSY230/Projects/repo/SystemIdentification/Project3/LatexCode/figure
+s/predictions.pdf> <C:/Projects/PhD/Courses/SystemIdentification-SSY230/Project
+s/repo/SystemIdentification/Project3/LatexCode/figures/pred_diff_arx_ss.pdf>] [
+6 <C:/Projects/PhD/Courses/SystemIdentification-SSY230/Projects/repo/SystemIden
+tification/Project3/LatexCode/figures/pred_diff_matrix.pdf> <C:/Projects/PhD/Co
+urses/SystemIdentification-SSY230/Projects/repo/SystemIdentification/Project3/L
+atexCode/figures/auto-corr-1step.pdf> <C:/Projects/PhD/Courses/SystemIdentifica
+tion-SSY230/Projects/repo/SystemIdentification/Project3/LatexCode/figures/cross
+-corr-1step.pdf> <C:/Projects/PhD/Courses/SystemIdentification-SSY230/Projects/
+repo/SystemIdentification/Project3/LatexCode/figures/predictions_nl.pdf> <C:/Pr
+ojects/PhD/Courses/SystemIdentification-SSY230/Projects/repo/SystemIdentificati
+on/Project3/LatexCode/figures/simulations_nl.pdf>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 188.
 
 (C:\Projects\PhD\Courses\SystemIdentification-SSY230\Projects\repo\SystemIdenti
 fication\Project3\LatexCode\document.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 78.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 78.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 188.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 188.
 Package rerunfilecheck Info: File `document.out' has not changed.
-(rerunfilecheck)             Checksum: FC7ADC3EEB175237DAFD9FAA30D2751B;311.
+(rerunfilecheck)             Checksum: BEE7A96706C4E3C2921FE1B89AA1663D;388.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
  ) 
 Here is how much of TeX's memory you used:
- 7094 strings out of 494045
- 107885 string characters out of 3145969
- 199226 words of memory out of 3000000
- 10318 multiletter control sequences out of 15000+200000
+ 7195 strings out of 494045
+ 110293 string characters out of 3145969
+ 205226 words of memory out of 3000000
+ 10386 multiletter control sequences out of 15000+200000
  9668 words of font info for 35 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 42i,8n,40p,789b,454s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 42i,8n,40p,1431b,454s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C
 :/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/
@@ -461,9 +589,9 @@ gram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Progra
 m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program F
 iles (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Program Files
  (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on document.pdf (3 pages, 186855 bytes).
+Output written on document.pdf (6 pages, 699298 bytes).
 PDF statistics:
- 343 PDF objects out of 1000 (max. 8388607)
- 12 named destinations out of 1000 (max. 500000)
- 61 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1122 PDF objects out of 1200 (max. 8388607)
+ 31 named destinations out of 1000 (max. 500000)
+ 139 words of extra memory for PDF output out of 10000 (max. 10000000)
 
