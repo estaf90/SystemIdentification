@@ -56,20 +56,23 @@ To make sure that the frequency content in both the training and validation data
 \label{fig:train_valid}
 \end{figure}
 
-From analysing Figure \ref{fig:bode-train_valid} it is clear that the amplitude of the frequency content in both training- and validation data is very similar, while there is a 360 degree phase shift approximately starting from frequencies $>0.35$ rad/s. However, it should be noted that a 360 degree phase shift means the validation data and training data are still in phase. Using the MATLAB build-in function \emph{periodogram} it is clear that the frequency content of the training- and validation data is very similar and we conclude that the chosen way to construct training/validation data is a good choice.
+From analysing Figure \ref{fig:bode-train_valid} it is clear that the amplitude of the frequency content in both training- and validation data is very similar, while there is a 360 degree phase shift approximately starting from frequencies $>0.35$ rad/s. However, it should be noted that a 360 degree phase shift means the validation data and training data are still in phase. Using the MATLAB build-in function \emph{periodogram} it is clear that the frequency content of the training- and validation data is very similar. Also, it can be seen that for frequencies $> 0.5$ rad/s the power the amount of information for each frequency decreases. 
+The high frequency assymptote amplitude is constant, which means that (for a linear system) there are an equal amount of poles and zeroes.
 
-It can be interesting to analyse the autocorrelations of and cross-correlation between the input $u(t)$ and the output $y(t)$. The correlations can be seen in Figure \ref{fig:cross-correlation}.
-\begin{figure}[ht]
-\centering
-\includegraphics[trim= 10cm 8cm 10cm 8cm, scale=0.7]{figures/cross-correlation.pdf}
-\caption{Autocorrelations of and cross-correlation between the input $u(t)$ and the output $y(t)$}
-\label{fig:cross-correlation}
-\end{figure}
-From Figure \ref{fig:cross-correlation} it is clear that the output depends on previous values of itself as well as previous values of the input. 
-
-\textbf{NOTE:} We should return to cross-correlation analysis after having a trained model of the system to make sure there are no cross-correlations remaining, since that could mean that a too simple model would have been used.
 
 \subsection{Pre-Processing}
+...
 
+\subsection{Model Estimation}
+Due to the conclusion that there should be an equal amount of poles and zeros the search for model order is simplified.
+\subsubsection{Linear Models}
+ In this section we search over the linear model space for candidate models. A few different linear models are tested and compared: ARX, OE, State Space and Transfer Function Estimation. 
+
+\begin{figure}[ht]
+\centering
+\includegraphics[trim= 10cm 8cm 10cm 8cm, scale=0.7]{figures/model_order.pdf}
+\caption{Searching over different model orders $n$, where the number of parameters $p$ are $p=2n+1$.}
+\label{fig:model_order}
+\end{figure}
 
 \end{document}
