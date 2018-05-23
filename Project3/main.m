@@ -32,6 +32,18 @@ ge_v = etfe(zv);
 figure; 
 bode(ge_t, ge_v); legend('train','valid'); grid on;
 set(findall(gcf,'type','line'),'linewidth',1.5)
+
+% Here we show the bode plot of empirical transfer function estimate.
+% Because the input signal is periodic, the estimate is unbiased.
+
+% By examining the bode plot, we can have an initial guess of the number of poles and zeros
+% we can observe that there are four sharp corners,
+% each of which represent two conjugate poles or two conjugate zeros depending on 
+% its concave or convex. The first and last parts
+% of the amplitude plot are ladder-shaped, which means that there are two
+% more real poles. And we can also see that there is one hollow between two spikes, 
+% which represent a zero. Thus, there are six poles and five zeros in total.
+
 % pause
 
 % auto- and cross-correlation
@@ -57,13 +69,26 @@ legend('arx', 'oe', 'ss (n4sid)', 'ss (PEM)', 'tf')
 % OE model, one possible exception is that sometimes by adding feedthrough,
 % tf model has parameter b0 in the numerator.
 
+% Due to the high similarity of the training and validation data, it is
+% unlikely that overfitting will happen, even we use too many model
+% parameters. Thus, we should use the parsimony principle to choose the one
+% with fewer free parameters or lower model order among those with similar
+% performance.
+
 
 %%
 disp('pzmaps...')
 % pzplots(models, 6)
+disp('We can further analysis the suitable number of poles and zeros from the pole/zero plot.')
 
 figure
 h = iopzplot(models{6,1});
+showConfidence(h, 0.95)
+
+disp('We can reduce one parameter from the numerator!')
+figure
+arx65 = arx(zt,[6 5 1]);
+h = iopzplot(arx65);
 showConfidence(h, 0.95)
 
 figure
@@ -71,16 +96,20 @@ h = iopzplot(models{6,3});
 showConfidence(h, 0.95)
 
 %%
-disp('Nyquist plot...')
-% nyquistplots(models, 6)
-
-figure
-h = nyquistplot(models{6,1});
-showConfidence(h, 0.95)
-
-figure
-h = nyquistplot(models{6,3});
-showConfidence(h, 0.95)
+% disp('Nyquist plot...')
+% % nyquistplots(models, 6)
+% 
+% figure
+% h = nyquistplot(models{6,1});
+% showConfidence(h, 0.95)
+% 
+% figure
+% h = nyquistplot(arx65);
+% showConfidence(h, 0.95)
+% 
+% figure
+% h = nyquistplot(models{6,3});
+% showConfidence(h, 0.95)
 
 %%
 disp('Bode plots...')
@@ -88,12 +117,20 @@ disp('Bode plots...')
 
 figure; hold on
 bode(ge_t);
+h = bodeplot(arx65);
+showConfidence(h, 0.95);
 h = bodeplot(models{6,1});
 showConfidence(h, 0.95);
 h = bodeplot(models{6,3});
 showConfidence(h, 0.95);
-legend('Training data','ARX model','Subspace model')
+legend('Training data','ARX model (6 5 1)','ARX model (6 6 1)','Subspace model 6')
 set(findall(gcf,'type','line'),'linewidth',1.5)
+
+% Here, we can see that the gain margin when phase is at -180 degree, around the Nyquist frequency
+% varies a lot compared to the empirical transfer function update, which is
+% almost constant. This implies that we probability need some further data
+% preprocessing step to filter out the high-frequency component of the
+% data.
 
 %%
 disp('Simulations')
@@ -109,17 +146,19 @@ peplot(models(:,models_idx), model_order, zv, k)
 %%
 disp('Residual Analysis')
 model_order = 6;
-residualAnalysis_plot(models, model_order, zt, 1) % Estimation data?
+residualAnalysis_plot(models, model_order, zt, 1) % Estimation data
+
+% Overall, ARX model is the one that best fits the data.
 
 %%
 disp('Nonlinear Identification')
-nonlinearARX = nlarx(zt,[6 6 1]);
+nonlinearARX = nlarx(zt,[6 5 1]);
 % nonlinearARX_Refined = nlarx(zt,nonlinearARX);
-linearARX = arx(zt,[6 6 1]);
+linearARX = arx(zt,[6 5 1]);
 nlARX_linearModel = nlarx(zt,linearARX);
-HW = nlhw(zt,[6 6 1]);
+HW = nlhw(zt,[6 5 1]);
 % HW_Refined = nlhw(zt,HW);
-linearOE = oe(zt,[6 6 1]);
+linearOE = oe(zt,[6 5 1]);
 HW_OE = nlhw(zt,linearOE);
 
 Validation_data = zv;
