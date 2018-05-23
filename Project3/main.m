@@ -41,7 +41,7 @@ set(findall(gcf,'type','line'),'linewidth',1.5)
 % each of which represent two conjugate poles or two conjugate zeros depending on 
 % its concave or convex. The first and last parts
 % of the amplitude plot are ladder-shaped, which means that there are two
-% more real poles. And we can also see that there is one hollow between two spikes, 
+% more real poles. Also, we can also see that there is one hollow between two spikes, 
 % which represent a zero. Thus, there are six poles and five zeros in total.
 
 % pause
@@ -130,7 +130,8 @@ set(findall(gcf,'type','line'),'linewidth',1.5)
 % varies a lot compared to the empirical transfer function update, which is
 % almost constant. This implies that we probability need some further data
 % preprocessing step to filter out the high-frequency component of the
-% data.
+% data. This can be further verified by examining the periodogram of the
+% data, which has very low power spectral in high frequency part.
 
 %%
 disp('Simulations')
@@ -167,6 +168,9 @@ figure
 compare(Validation_data, linearARX, nonlinearARX, nlARX_linearModel,HW, HW_OE, 5);
 figure
 compare(Validation_data, linearARX, nonlinearARX, nlARX_linearModel,HW, HW_OE, inf);
+
+% The fit rate is defined as fit\% =
+% (1-\frac{\sum(y(t)-\hat{y}(t))^2}{\sum(y(t)-\bar{y})^2})*100;
 
 %%
 % ARX
