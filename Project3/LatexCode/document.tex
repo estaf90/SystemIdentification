@@ -36,7 +36,7 @@ As mentioned previously the input data is a periodic sinusodial sweep (see top p
 \label{fig:input}
 
 \end{figure}
-To make sure that the frequency content in both the training and validation data are similar we use the \emph{etfe} in MATLAB to find the Empirical Transfer Function Estimate of training- and validation data. The resulting bode-plot is shown in Figure \ref{fig:bode-train_valid}.
+To make sure that the frequency content in both the training and validation data are similar we use the \emph{etfe} in MATLAB to find the Empirical Transfer Function Estimate of training- and validation data. The resulting bode-plot is shown in Figure \ref{fig:bode-train_valid}. Because the input signal is periodic, the empirical transfer function estimate is unbiased.
 
 \begin{figure}[ht]
 \centering
@@ -59,7 +59,7 @@ To make sure that the frequency content in both the training and validation data
 From analysing Figure \ref{fig:bode-train_valid} it is clear that the amplitude of the frequency content in both training- and validation data is very similar, while there is a 360 degree phase shift approximately starting from frequencies $>0.35$ rad/s. However, it should be noted that a 360 degree phase shift means the validation data and training data are still in phase. Using the MATLAB build-in function \emph{periodogram} it is clear that the frequency content of the training- and validation data is very similar. Also, it can be seen that for frequencies $> 0.5$ rad/s the power the amount of information for each frequency decreases. By examining the bode plot, we can have an initial guess of the number of poles and zeros we can observe that there are four sharp corners, each of which represent two conjugate poles or two conjugate zeros depending on its concave or convex. The first and last parts of the amplitude plot are ladder-shaped, which means that there are two more real poles. And we can also see that there is one hollow between two spikes, which represent a zero. Thus, there are six poles and five zeros in total. The high frequency assymptote amplitude is constant, which means that (for a linear system) there should be an equal amount of poles and zeroes.
 
 \subsection{Pre-Processing}
-...
+In off-line situations, it is often better to remove trends in data before doing the system identification so that only the dynamic features are modelled. This can be done using the \textit{getTrend} and \textit{detrend} commands in MATLAB. However, in our case, the data before and after detrending look very similar since there is no obvious trend.
 
 \subsection{Model Estimation}
 \subsubsection{Linear Models}
@@ -171,6 +171,12 @@ In Figure \ref{fig:bode_models}, we can see that the gain margin when phase is a
 \end{figure}
 
 \subsubsection{Non-linear models}
+
+In this subsection, we compare the linear model with several non-linear models regarding 5-step prediction error and simulation error in the terms of fitting rate, which is calculated as
+\begin{equation}
+	fit\% = (1-\frac{\sum(y(t)-\hat{y}(t))^2}{\sum(y(t)-\bar{y})^2})*100.
+\end{equation}
+
 \begin{figure}[ht]
 \centering
 \begin{subfigure}{.49\textwidth}
@@ -182,7 +188,9 @@ In Figure \ref{fig:bode_models}, we can see that the gain margin when phase is a
 	\includegraphics[trim= 10cm 8cm 10cm 8cm, scale=0.4]{figures/simulations_nl.pdf}
 \end{subfigure}
 \caption{Non-linear model predictions (left) and simulations (right).}
-\label{fig:correlations}
+\label{fig:nonlinear}
 \end{figure}
+
+It can be seen from Figure \ref{fig:nonlinear} that the non-linear models estimated using the non-linear ARX model has higher fitting rate than those identified using the non-linear Hammerstein-Wiener model. For a non-linear model, it can be estimated either by directly using the estimated data or by adding non-linearity to an identified linear model for refinement. However, in our case, when we estimated the default non-linear model using an input-output polynomial model of ARX or OE structure, the fitting rate did not increase compared to the result directly estimated using the linear model. Thus, we can draw the conclusion that there is little or no non-linearity in our data.
 
 \end{document}
