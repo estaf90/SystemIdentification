@@ -141,13 +141,13 @@ peplot(models, model_order, zv, inf)
 disp('Predicions')
 model_order = 6;
 k = 5;
-models_idx = cell2mat(cellfun(@(x) ~isequal(x,@oe), model_handles, 'UniformOutput', false));
+models_idx = cell2mat(cellfun(@(x) ~isequal(x,@oe)&~isequal(x,@tfest), model_handles, 'UniformOutput', false));
 peplot(models(:,models_idx), model_order, zv, k)
 
 %%
 disp('Residual Analysis')
 model_order = 6;
-residualAnalysis_plot(models, model_order, zt, 1) % Estimation data
+residualAnalysis_plot(models, model_order, zv, 1)
 
 % Overall, ARX model is the one that best fits the data.
 
