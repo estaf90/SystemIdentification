@@ -74,6 +74,15 @@ In off-line situations, it is often better to remove trends in data before doing
 In Figure \ref{fig:model_order} the $mse$ decreases for increasing model order but start to saturate for model orders above 8. As the high frequency assymptote from the bode plot of the ETFE tells us that there should be an equal ammount of poles and zeroes, and our more specific analysis resulted in 6 poles and 5 zeroes we first try models of order 6. From Figure \ref{fig:model_order} the $mse$ shows that the models ARX, and State Space give the best results so lets focus on analysing them from now on.
 
 \paragraph{Pole-Zero Plots}
+
+Next, we show the pole/zero and bode plots of the ARX model and the state space model estimated using subspace method. 
+
+The left plot in Figure \ref{fig:pzplot_arx1} shows the pole-zero map of an ARX model with model order na=nb=6, along with 95% confidence region. We can see that for the left two complex conjugate poles, there are some uncertainties. And most importantly, we can only observe 5 zeros in the plot. This is because the two zeros in the middle of the plot almost completely overlapped, which means that we can decrease one model order in the numerator of the plant model. 
+
+Figure \ref{fig:pzplot_arx2} shows the pole/zero plot of the ARX model with model order na = 6, and nb =5. We can see that by decreasing one model order in the numerator, the uncertainties of the left two complex conjugate poles are also decreased. 
+
+Figure \ref{fig:pzplot_ss} pole/zero plot corresponds to the state space model with order 6. Here can we can see that there is a real pole on the right half plane. This means that the system has an unstable gain. This can be also verified from this bode plot that for the state space model, the magnitude increases exponentially in the last part.  Here, we can see that the gain margin for the estimated models when phase is at -180 degree, close to the Nyquist frequency varies a lot compared to the empirical transfer function estimate, which is almost constant. This can be further verified by examining the spectral density of the data, which has very low power in high frequency part, which means for the high frequency part, not enough information is provided to give a good model estimation. 
+
 \begin{figure}[ht]
 \centering
 \begin{subfigure}{.49\textwidth}
@@ -88,8 +97,11 @@ In Figure \ref{fig:model_order} the $mse$ decreases for increasing model order b
 	\caption{ARX na=6 nb=5.}
 	\label{fig:pzplot_arx2}
 \end{subfigure}
+\caption{Pole/zero plots}
+\label{fig:pzplot}
 \end{figure}
 
+The zero in the origin is an uncaptured time shift (positive or negative?) of the system dynamic.
 
 \begin{figure}[ht]
 \centering
@@ -109,7 +121,8 @@ In Figure \ref{fig:bode_models}, we can see that the gain margin when phase is a
 
 \paragraph{Simulations}
 
-\paragraph{Pole-Zero Plots}
+
+
 \begin{figure}[ht]
 \centering
 \begin{subfigure}{.49\textwidth}
@@ -131,9 +144,10 @@ In Figure \ref{fig:bode_models}, we can see that the gain margin when phase is a
 \label{fig:model_differences_simulation}
 \end{figure}
 
+In the left plot of Figure \ref{fig:simulations} shows the simulation error of different models. Here, it is obvious to see that for the state space model estimated using prediction error method has the worst performance. Figure \ref{fig:model_differences_simulation} shows the comparison of different models. For the plots on the diagonal, the simulated output is compared to true data. We can see that the OE model and the transfer function model are very similar. It is due to the fact that the only difference between these two models is that for the transfer function model, there is a feedthrough option that allows us to choose b0 in the numerator, while b0 is always zero in the OE model. Figure shows that the ARX model has less simulation error. 
+
 \paragraph{Predictions}
 
-\paragraph{Pole-Zero Plots}
 \begin{figure}[ht]
 \centering
 \begin{subfigure}{.49\textwidth}
@@ -155,7 +169,7 @@ In Figure \ref{fig:bode_models}, we can see that the gain margin when phase is a
 \label{fig:model_differences_prediction}
 \end{figure}
 
-\paragraph{correlations}
+\paragraph{Correlations}
 \begin{figure}[ht]
 \centering
 \begin{subfigure}{.49\textwidth}
@@ -169,6 +183,8 @@ In Figure \ref{fig:bode_models}, we can see that the gain margin when phase is a
 \caption{Auto-Correlation (left) and cross-correlation (right).}
 \label{fig:correlations}
 \end{figure}
+
+Next, we did the residual analysis regarding its autocorrelation and its cross-correlation with the input. For a perfect-fitting model, the auto or cross correlation with the input should be zero expect when the lag is zero. In Figure \ref{fig:correlations}, we can see that the ARX model and the state space model estimated using subspace method are better than the rests. However, from this cross-correlation plot, we can see that the state space model is not very good due to the correlation is not zero when the lag is large and that the normalised magnetite also often exceeds the 95% confidence region. Overall, the ARX model is the best. 
 
 \subsubsection{Non-linear models}
 
@@ -192,5 +208,8 @@ In this subsection, we compare the linear model with several non-linear models r
 \end{figure}
 
 It can be seen from Figure \ref{fig:nonlinear} that the non-linear models estimated using the non-linear ARX model has higher fitting rate than those identified using the non-linear Hammerstein-Wiener model. For a non-linear model, it can be estimated either by directly using the estimated data or by adding non-linearity to an identified linear model for refinement. However, in our case, when we estimated the default non-linear model using an input-output polynomial model of ARX or OE structure, the fitting rate did not increase compared to the result directly estimated using the linear model. Thus, we can draw the conclusion that there is little or no non-linearity in our data.
+
+We also did some non-linear identification on our data. If we can obtain better performance using nonlinear model, then we can say that there are some non-linearities existing in our model. We tried the non-linear ARX model and the Hammerstein-Wiener model. Hammerstein-Wiener models describe dynamic systems using one or two static nonlinear blocks in series with a linear OE block, whereas in the non-linear ARX model, the regressors are followed by a non-linearity block. For the non-linear models, we can either choose to use the default option or we can initialize the non-linear system identification with an identified linear model, which means that the we start the model estimation with the linear model and begin the search by adding some non-linearities. However, from this figure we can see that, adding non-linearities to the linear model does not improve the model fitting rate. From this, we can infer that there is little or no non-linearity in the true model. 
+
 
 \end{document}
